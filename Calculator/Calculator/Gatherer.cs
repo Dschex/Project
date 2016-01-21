@@ -5,11 +5,6 @@ namespace Calculator
 {
     public class Gatherer: IGatherer
     {
-        public Gatherer()
-        {
-
-        }
-
         public int GatherInteger(string userString)
         {
             ConvertToInteger convertedString = new ConvertToInteger();

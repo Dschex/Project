@@ -2,6 +2,6 @@
 {
     public interface IAddition
     {
-      int Adds(int value1, int value2);
+      int Add(int value1, int value2);
     }
 }

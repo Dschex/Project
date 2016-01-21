@@ -9,6 +9,7 @@ namespace Calculator.Tests
         private MockRepository _mockRepository;
         private Mock<IAddition> _additionMock;
         private Mock<ISubtraction> _subtractMock;
+        private Mock<IMultiplication> _multiplicationMock; 
         private Gatherer _testObject;
 
         [SetUp]
@@ -17,7 +18,8 @@ namespace Calculator.Tests
             _mockRepository = new MockRepository(MockBehavior.Strict);
             _additionMock = _mockRepository.Create<IAddition>();
             _subtractMock = _mockRepository.Create<ISubtraction>();
-            _testObject = new Gatherer(_additionMock.Object, _subtractMock.Object);
+            _multiplicationMock = _mockRepository.Create<IMultiplication>();
+            _testObject = new Gatherer(_additionMock.Object, _subtractMock.Object, _multiplicationMock.Object);
         }
 
         [TearDown]
@@ -56,6 +58,28 @@ namespace Calculator.Tests
             string userString3 = "SUBTRACT";
             string userString4 = "subtract";
             string expected = "S";
+
+            var actual = _testObject.MathFunction(userString1);
+            Assert.That(actual, Is.SameAs(expected));
+
+            actual = _testObject.MathFunction(userString2);
+            Assert.That(actual, Is.SameAs(expected));
+
+            actual = _testObject.MathFunction(userString3);
+            Assert.That(actual, Is.SameAs(expected));
+
+            actual = _testObject.MathFunction(userString4);
+            Assert.That(actual, Is.SameAs(expected));
+        }
+
+        [Test]
+        public void MathFunction_Should_Return_Multiplication_When_Multiply_Function_Is_Selected_()
+        {
+            string userString1 = "M";
+            string userString2 = "m";
+            string userString3 = "MULTIPLY";
+            string userString4 = "multiply";
+            string expected = "M";
 
             var actual = _testObject.MathFunction(userString1);
             Assert.That(actual, Is.SameAs(expected));
@@ -112,12 +136,24 @@ namespace Calculator.Tests
         }
 
         [Test]
-        public void GetTotal_Correctly_Picks_Addition_Or_Subtraction()
+        public void GetTotal_Correctly_Picks_Subtraction()
         {
             string operation = "S";
             int number1 = 8;
             int number2 = 3;
             int expected = 5;
+
+            var actual = _testObject.GetTotal(operation, number1, number2);
+            Assert.That(actual, Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void GetTotal_Correctly_Picks_Multiplication()
+        {
+            string operation = "M";
+            int number1 = 4;
+            int number2 = 5;
+            int expected = 20;
 
             var actual = _testObject.GetTotal(operation, number1, number2);
             Assert.That(actual, Is.EqualTo(expected));

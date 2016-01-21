@@ -14,11 +14,14 @@ namespace Calculator.Tests
         }
 
         [Test]
-        public void Adds_Sums_Two_Values_and_Returns_A_Total()
+        public void Add_Sums_Two_Values_and_Returns_A_Total()
         {
-            var actual = _testObject.Add(1, 2);
+            int number1 = 1;
+            int number2 = 2;
+            int expected = 3;
 
-            Assert.That(actual, Is.EqualTo(3));
+            var actual = _testObject.Add(number1, number2);
+            Assert.That(actual, Is.EqualTo(expected));
         }
     }
 }

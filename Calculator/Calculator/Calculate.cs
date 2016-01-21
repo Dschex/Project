@@ -29,7 +29,7 @@ namespace Calculator
 
             try
             {
-                Console.WriteLine("Would you like to ADD or SUBTRACT ? \r\nType A to Add, and S to Substract");
+                Console.WriteLine("Would you like to ADD, SUBTRACT, or MULTIPLY ? \r\nType A to Add, S to Substract, or M to Multiply");
 
                 //Call MathFunction and assign it to variable "operation"
                 userInputFunction = Console.ReadLine();
@@ -57,9 +57,11 @@ namespace Calculator
                     Console.WriteLine($"The difference of {convertedNumber1} - {convertedNumber2} is {total} ");
                     Console.ReadLine();
                 }
-
-
-
+                if (operation == "M")
+                {
+                    Console.WriteLine($"The product of {convertedNumber1} * {convertedNumber2} is {total} ");
+                    Console.ReadLine();
+                }
             }
             catch (Exception ex)
             {

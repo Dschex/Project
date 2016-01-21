@@ -1,6 +1,4 @@
-﻿using System.Reflection.Emit;
-
-namespace Calculator
+﻿namespace Calculator
 {
    public class Program
     {

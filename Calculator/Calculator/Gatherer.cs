@@ -1,5 +1,4 @@
 ﻿using System;
-using System.CodeDom;
 
 namespace Calculator
 {
@@ -7,15 +6,18 @@ namespace Calculator
     {
         private IAddition _addition;
         private ISubtraction _subtraction;
+        private IMultiplication _multiplication;
 
         public Gatherer()
         {
-            
+
         }
-        public Gatherer(IAddition addition, ISubtraction subtraction)
+
+        public Gatherer(IAddition addition, ISubtraction subtraction, IMultiplication multiplication)
         {
             _addition = addition;
             _subtraction = subtraction;
+            _multiplication = multiplication;
         }
         public int ParseToInteger(string userString)
        {
@@ -33,6 +35,9 @@ namespace Calculator
                 case "S":
                 case "SUBTRACT":
                     return "S";
+                case "M":
+                case "MULTIPLY":
+                    return "M";
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -42,21 +47,20 @@ namespace Calculator
         {
             _addition = new Addition();
             _subtraction = new Subtraction();
+            _multiplication = new Multiplication();
 
-            if (operation == "A")
+            switch (operation)
             {
-                var total = _addition.Add(number1, number2);
-                return total;
+                case "A":
+                    return  _addition.Add(number1, number2);
+                case "S":
+                    return  _subtraction.Subtract(number1, number2);
+                case "M":
+                    return  _multiplication.Multiply(number1, number2);
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
-            if (operation == "S")
-            {
-                var total = _subtraction.Subtract(number1, number2);
-                return total;
-            }
-            else
-            {
-                throw new ArgumentOutOfRangeException();
-            } 
+
         }
     }
 }

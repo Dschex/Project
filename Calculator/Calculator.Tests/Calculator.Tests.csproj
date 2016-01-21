@@ -79,7 +79,7 @@
   <ItemGroup>
     <Compile Include="Addition_UT.cs" />
     <Compile Include="Calculate_UT.cs" />
-    <Compile Include="ConvertToInteger_UT.cs" />
+    <Compile Include="Gatherer_UT.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Subtraction_UT.cs" />
   </ItemGroup>

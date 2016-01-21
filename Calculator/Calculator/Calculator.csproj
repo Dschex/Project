@@ -45,10 +45,8 @@
   <ItemGroup>
     <Compile Include="Addition.cs" />
     <Compile Include="Calculate.cs" />
-    <Compile Include="ConvertToInteger.cs" />
     <Compile Include="Gatherer.cs" />
     <Compile Include="IAddition.cs" />
-    <Compile Include="IConvertToInteger.cs" />
     <Compile Include="IGatherer.cs" />
     <Compile Include="ISubtraction.cs" />
     <Compile Include="Program.cs" />

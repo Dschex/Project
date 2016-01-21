@@ -22,7 +22,6 @@ namespace Calculator.Tests
 
             actual = _testObject.Subtract(1, 2);
             Assert.That(actual, Is.EqualTo(-1));
-
         }
     }
 }

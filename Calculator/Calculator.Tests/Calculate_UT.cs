@@ -1,10 +1,5 @@
-﻿using System;
-using System.Runtime.Remoting.Messaging;
-using Moq;
+﻿using Moq;
 using NUnit.Framework;
-using Xunit;
-using Xunit.Sdk;
-using Assert = NUnit.Framework.Assert;
 
 namespace Calculator.Tests
 {
@@ -13,90 +8,51 @@ namespace Calculator.Tests
     {
         private MockRepository _mockRepository;
         private Mock<IGatherer> _gathererMock;
-        private Mock<IAddition> _additionMock;
-        private Mock<ISubtraction> _subtractMock; 
         private Calculate _testObject;
 
         [SetUp]
         public void Setup()
         {
-            _mockRepository = new MockRepository(MockBehavior.Strict); 
+            _mockRepository = new MockRepository(MockBehavior.Strict);
 
             _gathererMock = _mockRepository.Create<IGatherer>();
-            _additionMock = _mockRepository.Create<IAddition>();
-            _subtractMock = _mockRepository.Create<ISubtraction>();
-            _testObject = new Calculate(_gathererMock.Object, _additionMock.Object, _subtractMock.Object);
+            _testObject = new Calculate(_gathererMock.Object);
         }
 
         [TearDown]
-        private void Teardown()
+        public void Teardown()
         {
             _mockRepository.VerifyAll();
         }
 
         [Test]
-        public void MathFunction_Should_Return_Addition_When_Add_Function_Is_Selected_()
+        public void GetMathFunction_Calls_Gatherer_MathFunction()
         {
-            string userString1 = "A";
-            string userString2 = "a";
-            string userString3 = "ADD";
-            string userString4 = "add";
-            string expected = "A";
+            string userString = "Add";
 
-            var actual = _testObject.MathFunction(userString1);
-            Assert.That(actual, Is.SameAs(expected));
-
-            actual = _testObject.MathFunction(userString2);
-            Assert.That(actual, Is.SameAs(expected));
-
-            actual = _testObject.MathFunction(userString3);
-            Assert.That(actual, Is.SameAs(expected));
-
-            actual = _testObject.MathFunction(userString4);
-            Assert.That(actual, Is.SameAs(expected));
+            _gathererMock.Setup(gm => gm.MathFunction(userString)).Returns("A").Verifiable();
+             _testObject.GetMathFunction(userString);
         }
 
         [Test]
-        public void MathFunction_Should_Return_Subtraction_When_Subtract_Function_Is_Selected_()
+        public void GetConvertedNumber_Calls_Gatherer_ParserToInteger()
         {
-            string userString1 = "S";
-            string userString2 = "s";
-            string userString3 = "SUBTRACT";
-            string userString4 = "subtract";
-            string expected = "S";
-
-            var actual = _testObject.MathFunction(userString1);
-            Assert.That(actual, Is.SameAs(expected));
-
-            actual = _testObject.MathFunction(userString2);
-            Assert.That(actual, Is.SameAs(expected));
-
-            actual = _testObject.MathFunction(userString3);
-            Assert.That(actual, Is.SameAs(expected));
-
-            actual = _testObject.MathFunction(userString4);
-            Assert.That(actual, Is.SameAs(expected));
+            string userString = "3";
+            _gathererMock.Setup(gm => gm.ParseToInteger(userString)).Returns(3).Verifiable();
+            _testObject.GetConvertedNumber(userString); 
         }
 
         [Test]
-        public void CallGatherer_Should_Make_Call_To_Gatherer()
+        public void GetTotal_Calls_Gatherer_GetTotal()
         {
-            string userInput1 = "2";
+            string operation = "S";
+            int number1 = 9;
+            int number2 = 3;
+            int expected = 6;
 
-            _gathererMock.Setup(gm => gm.GatherInteger(userInput1)).Returns(2).Verifiable();
-            _testObject.CallGatherer(userInput1);
-        }
+            _gathererMock.Setup(gm => gm.GetTotal(operation, number1, number2)).Returns(expected).Verifiable();
+            _testObject.GetTotal(operation, number1, number2);
 
-        [Test]
-        public void CallGatherer_Should_Make_Call_To_Gatherer2()
-        {
-           // var catchMessage = ($"I am restarting the program.\r\nWould you like to ADD or SUBTRACT ? \r\nType A to Add, and S to Substract");
-            string userInput1 = "r";
-
-            _gathererMock.Setup(gm => gm.GatherInteger(userInput1)).Throws<ArgumentOutOfRangeException>().ToString();
-            _testObject.CallGatherer(userInput1);
-            
-           // Assert.That(_gathererMock.Object.GatherInteger(userInput1), Throws.TypeOf<ArgumentOutOfRangeException>());
         }
     }
 }

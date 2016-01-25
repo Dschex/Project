@@ -45,11 +45,8 @@
   <ItemGroup>
     <Compile Include="Addition.cs" />
     <Compile Include="Calculate.cs" />
+    <Compile Include="Divison.cs" />
     <Compile Include="Gatherer.cs" />
-    <Compile Include="IAddition.cs" />
-    <Compile Include="IGatherer.cs" />
-    <Compile Include="IMultiplication.cs" />
-    <Compile Include="ISubtraction.cs" />
     <Compile Include="Multiplication.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

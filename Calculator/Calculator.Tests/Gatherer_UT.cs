@@ -9,7 +9,8 @@ namespace Calculator.Tests
         private MockRepository _mockRepository;
         private Mock<IAddition> _additionMock;
         private Mock<ISubtraction> _subtractMock;
-        private Mock<IMultiplication> _multiplicationMock; 
+        private Mock<IMultiplication> _multiplicationMock;
+        private Mock<IDivision> _divisionMock; 
         private Gatherer _testObject;
 
         [SetUp]
@@ -19,7 +20,8 @@ namespace Calculator.Tests
             _additionMock = _mockRepository.Create<IAddition>();
             _subtractMock = _mockRepository.Create<ISubtraction>();
             _multiplicationMock = _mockRepository.Create<IMultiplication>();
-            _testObject = new Gatherer(_additionMock.Object, _subtractMock.Object, _multiplicationMock.Object);
+            _divisionMock = _mockRepository.Create<IDivision>();
+            _testObject = new Gatherer(_additionMock.Object, _subtractMock.Object, _multiplicationMock.Object, _divisionMock.Object);
         }
 
         [TearDown]
@@ -95,6 +97,28 @@ namespace Calculator.Tests
         }
 
         [Test]
+        public void MathFunction_Should_Return_Division_When_Divide_Function_Is_Selected_()
+        {
+            string userString1 = "D";
+            string userString2 = "d";
+            string userString3 = "DIVIDE";
+            string userString4 = "divide";
+            string expected = "D";
+
+            var actual = _testObject.MathFunction(userString1);
+            Assert.That(actual, Is.SameAs(expected));
+
+            actual = _testObject.MathFunction(userString2);
+            Assert.That(actual, Is.SameAs(expected));
+
+            actual = _testObject.MathFunction(userString3);
+            Assert.That(actual, Is.SameAs(expected));
+
+            actual = _testObject.MathFunction(userString4);
+            Assert.That(actual, Is.SameAs(expected));
+        }
+
+        [Test]
         public void MathFunction_Should_Return_Exception_If_User_Selection_Is_Invalid_()
         {
             string userString = "b";
@@ -154,6 +178,18 @@ namespace Calculator.Tests
             int number1 = 4;
             int number2 = 5;
             int expected = 20;
+
+            var actual = _testObject.GetTotal(operation, number1, number2);
+            Assert.That(actual, Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void GetTotal_Correctly_Picks_Division()
+        {
+            string operation = "D";
+            int number1 = 90;
+            int number2 = 15;
+            int expected = 6;
 
             var actual = _testObject.GetTotal(operation, number1, number2);
             Assert.That(actual, Is.EqualTo(expected));

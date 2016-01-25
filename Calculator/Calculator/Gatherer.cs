@@ -2,22 +2,32 @@
 
 namespace Calculator
 {
+    public interface IGatherer
+    {
+        int ParseToInteger(string userString);
+        string MathFunction(string userString);
+        int GetTotal(string operation, int number1, int number2);
+    }
+
+
     public class Gatherer: IGatherer
     {
         private IAddition _addition;
         private ISubtraction _subtraction;
         private IMultiplication _multiplication;
+        private IDivision _division;
 
         public Gatherer()
         {
 
         }
 
-        public Gatherer(IAddition addition, ISubtraction subtraction, IMultiplication multiplication)
+        public Gatherer(IAddition addition, ISubtraction subtraction, IMultiplication multiplication, IDivision division)
         {
             _addition = addition;
             _subtraction = subtraction;
             _multiplication = multiplication;
+            _division = division;
         }
         public int ParseToInteger(string userString)
        {
@@ -38,6 +48,9 @@ namespace Calculator
                 case "M":
                 case "MULTIPLY":
                     return "M";
+                case "D":
+                case "DIVIDE":
+                    return "D";
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -48,6 +61,7 @@ namespace Calculator
             _addition = new Addition();
             _subtraction = new Subtraction();
             _multiplication = new Multiplication();
+            _division = new Divison();
 
             switch (operation)
             {
@@ -57,6 +71,8 @@ namespace Calculator
                     return  _subtraction.Subtract(number1, number2);
                 case "M":
                     return  _multiplication.Multiply(number1, number2);
+                case "D":
+                    return _division.Divide(number1, number2);
                 default:
                     throw new ArgumentOutOfRangeException();
             }

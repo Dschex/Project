@@ -29,7 +29,7 @@ namespace Calculator
 
             try
             {
-                Console.WriteLine("Would you like to ADD, SUBTRACT, or MULTIPLY ? \r\nType A to Add, S to Substract, or M to Multiply");
+                Console.WriteLine("Would you like to ADD, SUBTRACT, MULTIPLY or DIVIDE ? \r\nType A to Add, S to Substract, M to Multiply or D to Divide");
 
                 //Call MathFunction and assign it to variable "operation"
                 userInputFunction = Console.ReadLine();
@@ -62,11 +62,23 @@ namespace Calculator
                     Console.WriteLine($"The product of {convertedNumber1} * {convertedNumber2} is {total} ");
                     Console.ReadLine();
                 }
+                if (operation == "D")
+                {
+                    Console.WriteLine($"The quotient of {convertedNumber1} ÷ {convertedNumber2} is {total} ");
+                    Console.ReadLine();
+                }
             }
             catch (Exception ex)
             {
-                Console.WriteLine("I don't know what you want. Let's start over.");
-                Run();
+                if (ex.Message == ($"Attempted to divide by zero."))
+                {
+                Console.Write($"{ex.Message} \r\nRemember division my zero is not allowed.  Let's start over.\r\n");
+                }
+                else
+                {
+                  Console.WriteLine("I don't know what you want. Let's start over.");  
+                }
+               Run();
             }
 
         }

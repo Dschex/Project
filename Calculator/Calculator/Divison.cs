@@ -1,10 +1,12 @@
-﻿namespace Calculator
+﻿using System.Runtime.InteropServices;
+
+namespace Calculator
 {
     public interface IDivision
     {
         int Divide(int dividend, int divisor);
     }
-    class Divison
+    public class Divison: IDivision
     {
         public int Divide(int dividend, int divisor)
         {

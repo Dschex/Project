@@ -4,9 +4,9 @@ namespace Calculator
 {
     public interface IGatherer
     {
-        int ParseToInteger(string userString);
+        double ParseToDouble(string userString);
         string MathFunction(string userString);
-        int GetTotal(string operation, int number1, int number2);
+        double GetTotal(string operation, double number1, double number2);
     }
 
 
@@ -29,10 +29,15 @@ namespace Calculator
             _multiplication = multiplication;
             _division = division;
         }
-        public int ParseToInteger(string userString)
-       {
-            //this will throw a FormatException if it cannot be Parsed into an int so no further exception handling needed
-           return int.Parse(userString);
+        public double ParseToDouble(string userString)
+        {
+            var parsedValue = double.Parse(userString);
+
+            if (parsedValue >= double.MaxValue || parsedValue <= double.MinValue)
+            {
+                throw new FormatException();
+            }
+            return parsedValue;
         }
 
         public string MathFunction(string userString)
@@ -56,21 +61,21 @@ namespace Calculator
             }
         }
 
-        public int GetTotal(string operation, int number1, int number2)
+        public double GetTotal(string operation, double number1, double number2)
         {
             _addition = new Addition();
             _subtraction = new Subtraction();
             _multiplication = new Multiplication();
-            _division = new Divison();
+            _division = new Division();
 
             switch (operation)
             {
                 case "A":
-                    return  _addition.Add(number1, number2);
+                    return _addition.Add(number1, number2);
                 case "S":
-                    return  _subtraction.Subtract(number1, number2);
+                    return _subtraction.Subtract(number1, number2);
                 case "M":
-                    return  _multiplication.Multiply(number1, number2);
+                    return _multiplication.Multiply(number1, number2);
                 case "D":
                     return _division.Divide(number1, number2);
                 default:

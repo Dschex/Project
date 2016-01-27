@@ -127,33 +127,60 @@ namespace Calculator.Tests
         }
 
         [Test]
-        public void ParseToInteger_Returns_Integer_When_ParseToInt_Is_Possible()
+        public void ParseToDouble_Returns_A_Double_When_Parse_Is_Possible()
         {
-            string userString = "5";
-            int expectedResult = 5;
+            string userString1 = "5";
+            double expectedResult1 = 5;
+            Assert.That(_testObject.ParseToDouble(userString1), Is.EqualTo(expectedResult1));
 
-            Assert.That(_testObject.ParseToInteger(userString), Is.EqualTo(expectedResult));
+            string userString2 = "5.6989897989";
+            double expectedResult2 = 5.6989897989;
+            Assert.That(_testObject.ParseToDouble(userString2), Is.EqualTo(expectedResult2));
+                
+            string userString3 = "-2147483648.0";
+            double expectedResult3= int.MinValue;
+            Assert.That(_testObject.ParseToDouble(userString3), Is.EqualTo(expectedResult3));
         }
 
         [Test]
-        public void ParseToInteger_Returns_Exception_When_Unable_To_Parse_To_Int()
+        public void ParseToDouble_Returns_Exception_When_Unable_To_Parse()
         {
             string userString1 = "a";
-            string userString2 = string.Empty;
-            string userString3 = "0.58968";
+            Assert.Throws<FormatException>(() => _testObject.ParseToDouble(userString1));
 
-            Assert.Throws<FormatException>(() => _testObject.ParseToInteger(userString1));
-            Assert.Throws<FormatException>(() => _testObject.ParseToInteger(userString2));
-            Assert.Throws<FormatException>(() => _testObject.ParseToInteger(userString3));
+            string userString2 = string.Empty;
+            Assert.Throws<FormatException>(() => _testObject.ParseToDouble(userString2));
+        
+            string userString3 = "-1.7976931348623157E+308";
+            Assert.Throws<FormatException>(() => _testObject.ParseToDouble(userString3));
+
+            string userString4 = "1.7976931348623157E+308";
+            Assert.Throws<FormatException>(() => _testObject.ParseToDouble(userString4));
+
+            string userString5 = "-1.7976931348623157E+309";
+            Assert.Throws<OverflowException>(() => _testObject.ParseToDouble(userString5));
+
+            string userString6 = "1.7976931348623157E+309";
+            Assert.Throws<OverflowException>(() => _testObject.ParseToDouble(userString6));
+        }
+
+        [Test]
+        public void ParseToDouble_Returns_Exception_When_UserString_Parses_To_MinValue_Or_MaxValue()
+        {
+            string userString1 = "1.7976931348623157E+308";
+            Assert.Throws<FormatException>(()=> _testObject.ParseToDouble(userString1));
+
+            string userString2 = "-1.7976931348623157E+308";
+            Assert.Throws<FormatException>(()=> _testObject.ParseToDouble(userString2));
         }
 
         [Test]
         public void GetTotal_Correctly_Picks_Addition()
         {
             string operation1 = "A";
-            int number1 = 8;
-            int number2 = 3;
-            int expected = 11;
+            double number1 = 8;
+            double number2 = 3;
+            double expected = 11;
 
             var actual = _testObject.GetTotal(operation1, number1, number2);
             Assert.That(actual, Is.EqualTo(expected));
@@ -163,9 +190,9 @@ namespace Calculator.Tests
         public void GetTotal_Correctly_Picks_Subtraction()
         {
             string operation = "S";
-            int number1 = 8;
-            int number2 = 3;
-            int expected = 5;
+            double number1 = 8;
+            double number2 = 3;
+            double expected = 5;
 
             var actual = _testObject.GetTotal(operation, number1, number2);
             Assert.That(actual, Is.EqualTo(expected));
@@ -175,9 +202,9 @@ namespace Calculator.Tests
         public void GetTotal_Correctly_Picks_Multiplication()
         {
             string operation = "M";
-            int number1 = 4;
-            int number2 = 5;
-            int expected = 20;
+            double number1 = 4;
+            double number2 = 5;
+            double expected = 20;
 
             var actual = _testObject.GetTotal(operation, number1, number2);
             Assert.That(actual, Is.EqualTo(expected));
@@ -187,9 +214,9 @@ namespace Calculator.Tests
         public void GetTotal_Correctly_Picks_Division()
         {
             string operation = "D";
-            int number1 = 90;
-            int number2 = 15;
-            int expected = 6;
+            double number1 = 90;
+            double number2 = 15;
+            double expected = 6;
 
             var actual = _testObject.GetTotal(operation, number1, number2);
             Assert.That(actual, Is.EqualTo(expected));

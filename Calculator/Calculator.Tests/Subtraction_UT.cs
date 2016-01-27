@@ -16,12 +16,12 @@ namespace Calculator.Tests
         [Test]
         public void Subtract_Gives_Difference_Between_Two_Values_and_Returns_A_Total()
         {
-            int number1 = 5;
-            int number2 = 2;
-            int expected1 = 3;
-            int number3 = 1;
-            int number4 = 2;
-            int expected2 = -1;
+            double number1 = 5;
+            double number2 = 2;
+            double expected1 = 3;
+            double number3 = 1;
+            double number4 = 2;
+            double expected2 = -1;
 
             var actual = _testObject.Subtract(number1, number2);
             Assert.That(actual, Is.EqualTo(expected1));

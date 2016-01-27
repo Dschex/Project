@@ -1,6 +1,4 @@
-﻿using System;
-using NUnit.Framework;
-using NUnit.Framework.Constraints;
+﻿using NUnit.Framework;
 
 namespace Calculator.Tests
 {
@@ -17,9 +15,9 @@ namespace Calculator.Tests
         [Test]
         public void Multiply_Returns_Product_of_Two_Values()
         {
-            int number1 = 4;
-            int number2 = 5;
-            int product = 20;
+            double number1 = 4;
+            double number2 = 5;
+            double product = 20;
 
             var actual = _testObject.Multiply(number1, number2);
 

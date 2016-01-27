@@ -2,14 +2,14 @@
 {
     public interface IAddition
     {
-        int Add(int value1, int value2);
+        double Add(double value1, double value2);
     }
 
     public class Addition : IAddition
     {
-        public int Add(int value1, int value2)
+        public double Add(double value1, double value2)
         {
-            return value1 + value2;
+            return (value1 + value2);
         }
     }
 }

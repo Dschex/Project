@@ -2,13 +2,13 @@
 {
     public interface ISubtraction
     {
-        int Subtract(int value1, int value2);
+        double Subtract(double value1, double value2);
     }
     public class Subtraction: ISubtraction
     {
-        public int Subtract(int value1, int value2)
+        public double Subtract(double value1, double value2)
         {
-            return value1 - value2;
+            return (value1 - value2);
         }
     }
 }

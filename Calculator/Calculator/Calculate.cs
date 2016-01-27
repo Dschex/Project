@@ -19,17 +19,18 @@ namespace Calculator
             _gatherer = new Gatherer();
 
             //Variables 
-            int total;
-            int convertedNumber1;
-            int convertedNumber2;
+            double total;
+            double convertedNumber1;
+            double convertedNumber2;
             string userInputValue1 = string.Empty;
             string userInputValue2 = string.Empty;
             string userInputFunction = string.Empty;
-            string operation = "S";
+            string operation = String.Empty;
 
             try
             {
-                Console.WriteLine("Would you like to ADD, SUBTRACT, MULTIPLY or DIVIDE ? \r\nType A to Add, S to Substract, M to Multiply or D to Divide");
+                Console.WriteLine(
+                    "Would you like to ADD, SUBTRACT, MULTIPLY or DIVIDE ? \r\nType A to Add, S to Substract, M to Multiply or D to Divide");
 
                 //Call MathFunction and assign it to variable "operation"
                 userInputFunction = Console.ReadLine();
@@ -68,19 +69,16 @@ namespace Calculator
                     Console.ReadLine();
                 }
             }
+            catch (DivideByZeroException)
+            {
+                Console.Write($"Remember division my zero is not allowed.  Let's start over.\r\n");
+                Run();
+            }
             catch (Exception ex)
             {
-                if (ex.Message == ($"Attempted to divide by zero."))
-                {
-                Console.Write($"{ex.Message} \r\nRemember division my zero is not allowed.  Let's start over.\r\n");
-                }
-                else
-                {
-                  Console.WriteLine("I don't know what you want. Let's start over.");  
-                }
-               Run();
+                Console.WriteLine("I don't know what you want. Let's start over.");
+                Run();
             }
-
         }
 
        public string GetMathFunction(string userInputFunction)
@@ -89,13 +87,13 @@ namespace Calculator
            return userfunction;
        }
 
-       public int GetConvertedNumber(string userInputValue)
+       public double GetConvertedNumber(string userInputValue)
        {
-          return _gatherer.ParseToInteger(userInputValue);
+          return _gatherer.ParseToDouble(userInputValue);
        }
 
-       public int GetTotal(string operation, int convertedNumber1, int convertedNumber2)
-        {
+       public double GetTotal(string operation, double convertedNumber1, double convertedNumber2)
+       {
            return _gatherer.GetTotal(operation, convertedNumber1, convertedNumber2);
        }
     }

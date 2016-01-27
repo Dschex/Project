@@ -38,7 +38,7 @@ namespace Calculator.Tests
         public void GetConvertedNumber_Calls_Gatherer_ParserToInteger()
         {
             string userString = "3";
-            _gathererMock.Setup(gm => gm.ParseToInteger(userString)).Returns(3).Verifiable();
+            _gathererMock.Setup(gm => gm.ParseToDouble(userString)).Returns(3).Verifiable();
             _testObject.GetConvertedNumber(userString); 
         }
 
@@ -46,9 +46,9 @@ namespace Calculator.Tests
         public void GetTotal_Calls_Gatherer_GetTotal()
         {
             string operation = "S";
-            int number1 = 9;
-            int number2 = 3;
-            int expected = 6;
+            double number1 = 9.5;
+            double number2 = 3.7;
+            double expected = 5.8;
 
             _gathererMock.Setup(gm => gm.GetTotal(operation, number1, number2)).Returns(expected).Verifiable();
             _testObject.GetTotal(operation, number1, number2);

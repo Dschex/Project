@@ -2,13 +2,13 @@
 {
     public interface IMultiplication
     {
-        int Multiply(int value1, int value2);
+        double Multiply(double value1, double value2);
     }
     public class Multiplication: IMultiplication
     {
-        public int Multiply(int value1, int value2)
+        public double Multiply(double value1, double value2)
         {
-            return (value1 * value2);
+            return value1 * value2;
         }
     }
 }

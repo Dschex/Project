@@ -16,9 +16,9 @@ namespace Calculator.Tests
         [Test]
         public void Add_Sums_Two_Values_and_Returns_A_Total()
         {
-            int number1 = 1;
-            int number2 = 2;
-            int expected = 3;
+            double number1 = 1;
+            double number2 = 2;
+            double expected = 3;
 
             var actual = _testObject.Add(number1, number2);
             Assert.That(actual, Is.EqualTo(expected));

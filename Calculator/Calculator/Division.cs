@@ -14,7 +14,7 @@ namespace Calculator
             {
                 throw new DivideByZeroException();
             }
-            return dividend/ divisor;
+            return dividend / divisor;
         }
     }
 }

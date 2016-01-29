@@ -19,7 +19,7 @@ namespace Calculator
             _gatherer = new Gatherer();
 
             //Variables 
-            double total;
+            string total;
             double convertedNumber1;
             double convertedNumber2;
             string userInputValue1 = string.Empty;
@@ -34,44 +34,29 @@ namespace Calculator
 
                 //Call MathFunction and assign it to variable "operation"
                 userInputFunction = Console.ReadLine();
-                operation = GetMathFunction(userInputFunction);
-
+                operation = _gatherer.MathFunction(userInputFunction); 
+                
                 //Convert userString to integer
                 Console.WriteLine("Please enter the first number.");
                 userInputValue1 = Console.ReadLine();
-                convertedNumber1 = GetConvertedNumber(userInputValue1);
+                convertedNumber1 = _gatherer.ParseToDouble(userInputValue1);
 
                 Console.WriteLine("Please enter the second number.");
                 userInputValue2 = Console.ReadLine();
-                convertedNumber2 = GetConvertedNumber(userInputValue2);
+                convertedNumber2 = _gatherer.ParseToDouble(userInputValue2);
+                _gatherer.ParseToDouble(userInputValue2);
 
                 //Get total base on operation selected.
-                total = GetTotal(operation, convertedNumber1, convertedNumber2);
+                total = _gatherer.GetTotal(operation, convertedNumber1, convertedNumber2);
 
-                if (operation == "A")
-                {
-                    Console.WriteLine($"The sum of {convertedNumber1} + {convertedNumber2} is {total} ");
-                    Console.ReadLine();
-                }
-                if (operation == "S")
-                {
-                    Console.WriteLine($"The difference of {convertedNumber1} - {convertedNumber2} is {total} ");
-                    Console.ReadLine();
-                }
-                if (operation == "M")
-                {
-                    Console.WriteLine($"The product of {convertedNumber1} * {convertedNumber2} is {total} ");
-                    Console.ReadLine();
-                }
-                if (operation == "D")
-                {
-                    Console.WriteLine($"The quotient of {convertedNumber1} ÷ {convertedNumber2} is {total} ");
-                    Console.ReadLine();
-                }
+                //Display total
+                Console.WriteLine(total);
+                Console.ReadLine();
             }
+
             catch (DivideByZeroException)
             {
-                Console.Write($"Remember division my zero is not allowed.  Let's start over.\r\n");
+                Console.Write($"Remember division by zero is not allowed.  Let's start over.\r\n");
                 Run();
             }
             catch (Exception ex)
@@ -80,21 +65,5 @@ namespace Calculator
                 Run();
             }
         }
-
-       public string GetMathFunction(string userInputFunction)
-       {
-           var userfunction = _gatherer.MathFunction(userInputFunction);
-           return userfunction;
-       }
-
-       public double GetConvertedNumber(string userInputValue)
-       {
-          return _gatherer.ParseToDouble(userInputValue);
-       }
-
-       public double GetTotal(string operation, double convertedNumber1, double convertedNumber2)
-       {
-           return _gatherer.GetTotal(operation, convertedNumber1, convertedNumber2);
-       }
     }
 }

@@ -180,8 +180,10 @@ namespace Calculator.Tests
             string operation1 = "A";
             double number1 = 8;
             double number2 = 3;
-            double expected = 11;
+            double total = 11;
+            string expected = $"The sum of {number1} + {number2} is {total}";
 
+            _additionMock.Setup(am => am.Add(number1, number2)).Returns(total).Verifiable();
             var actual = _testObject.GetTotal(operation1, number1, number2);
             Assert.That(actual, Is.EqualTo(expected));
         }
@@ -192,8 +194,10 @@ namespace Calculator.Tests
             string operation = "S";
             double number1 = 8;
             double number2 = 3;
-            double expected = 5;
+            double total = 5;
+            string expected = $"The difference of {number1} - {number2} is {total}";
 
+            _subtractMock.Setup(sm => sm.Subtract(number1, number2)).Returns(total).Verifiable();
             var actual = _testObject.GetTotal(operation, number1, number2);
             Assert.That(actual, Is.EqualTo(expected));
         }
@@ -204,8 +208,10 @@ namespace Calculator.Tests
             string operation = "M";
             double number1 = 4;
             double number2 = 5;
-            double expected = 20;
+            double total = 20;
+            string expected = $"The product of {number1} * {number2} is {total}";
 
+            _multiplicationMock.Setup(mm => mm.Multiply(number1, number2)).Returns(total).Verifiable();
             var actual = _testObject.GetTotal(operation, number1, number2);
             Assert.That(actual, Is.EqualTo(expected));
         }
@@ -216,8 +222,10 @@ namespace Calculator.Tests
             string operation = "D";
             double number1 = 90;
             double number2 = 15;
-            double expected = 6;
+            double total = 6;
+            string expected = $"The quotient of { number1} / { number2} is { total}";
 
+            _divisionMock.Setup(dm => dm.Divide(number1, number2)).Returns(total).Verifiable();
             var actual = _testObject.GetTotal(operation, number1, number2);
             Assert.That(actual, Is.EqualTo(expected));
         }

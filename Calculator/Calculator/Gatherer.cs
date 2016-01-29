@@ -6,16 +6,15 @@ namespace Calculator
     {
         double ParseToDouble(string userString);
         string MathFunction(string userString);
-        double GetTotal(string operation, double number1, double number2);
+        string GetTotal(string operation, double number1, double number2);
     }
-
 
     public class Gatherer: IGatherer
     {
-        private IAddition _addition;
-        private ISubtraction _subtraction;
-        private IMultiplication _multiplication;
-        private IDivision _division;
+        private IAddition _addition = new Addition();
+        private ISubtraction _subtraction = new Subtraction();
+        private IMultiplication _multiplication = new Multiplication();
+        private IDivision _division = new Division();
 
         public Gatherer()
         {
@@ -29,6 +28,7 @@ namespace Calculator
             _multiplication = multiplication;
             _division = division;
         }
+
         public double ParseToDouble(string userString)
         {
             var parsedValue = double.Parse(userString);
@@ -61,27 +61,29 @@ namespace Calculator
             }
         }
 
-        public double GetTotal(string operation, double number1, double number2)
+        public string GetTotal(string operation, double number1, double number2)
         {
-            _addition = new Addition();
-            _subtraction = new Subtraction();
-            _multiplication = new Multiplication();
-            _division = new Division();
-
-            switch (operation)
+            if (operation == "A")
             {
-                case "A":
-                    return _addition.Add(number1, number2);
-                case "S":
-                    return _subtraction.Subtract(number1, number2);
-                case "M":
-                    return _multiplication.Multiply(number1, number2);
-                case "D":
-                    return _division.Divide(number1, number2);
-                default:
-                    throw new ArgumentOutOfRangeException();
+                var total = _addition.Add(number1, number2);
+                return ($"The sum of {number1} + {number2} is {total}");
             }
-
+            if (operation == "S")
+            {
+                var total = _subtraction.Subtract(number1, number2);
+                return ($"The difference of { number1} - { number2} is { total}");
+            }
+            if (operation == "M")
+            {
+                var total = _multiplication.Multiply(number1, number2);
+                return ($"The product of {number1} * {number2} is {total}");
+            }
+            if (operation == "D")
+            {
+                var total = _division.Divide(number1, number2);
+                return ($"The quotient of {number1} / {number2} is {total}");
+            }
+            throw new ArgumentOutOfRangeException();
         }
     }
 }

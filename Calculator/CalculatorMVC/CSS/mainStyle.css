@@ -1,0 +1,25 @@
+﻿/*.keys:not(:last-of-type) {
+    margin-bottom: 4px;
+}*/
+.calculator button {
+    width: 3em;
+    margin-bottom: 4px;
+    height:90%;
+    font-size:20px;
+}
+.calculator { 
+    border: .3em solid #D6D6D6;
+    padding: 1em;
+    width: 21em;
+    display: inline-block;
+    background-color: #F5F5F5;
+}
+.screen input {
+    border: .2em solid #d9d9d9;
+    border-top: .2em solid #c0c0c0;
+    color: #333;
+    padding: 1em;
+    margin-bottom: .5em;
+    outline: none;
+    width: 18em;
+}

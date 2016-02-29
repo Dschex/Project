@@ -1,0 +1,82 @@
+﻿@using System.Web.UI.WebControls
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/CSS/MainStyle.css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+    @{
+        ViewBag.Title = "Index";
+    }
+<div class="container">
+        <div class="calculator">
+            <div class="screen" >
+                <input type="text" id="screen" class=".col-md-12">
+            </div>
+            <div class="keypad">
+                <div class="keys">
+                    <button type="button" class="btn btn-info btn-sm" value="CE" onclick="clearEverything()">CE</button>
+                    <button type="button" class="btn btn-info btn-sm" value="←" onclick="backspace()">←</button>
+                    <button type="button" class="btn btn-info btn-sm" value="%" onclick="percent()">%</button>
+                    <button type="button" class="btn btn-info btn-sm" value="+" onclick="display(value.valueOf())">+</button>
+                </div>
+                <div class="keys">
+                    <button type="button" class="btn btn-info btn-sm" value="7" onclick="display(value.valueOf())">7</button>
+                    <button type="button" class="btn btn-info btn-sm" value="8" onclick="display(value.valueOf())">8</button>
+                    <button type="button" class="btn btn-info btn-sm" value="9" onclick="display(value.valueOf())">9</button>
+                    <button type="button" class="btn btn-info btn-sm" value="-" onclick="display(value.valueOf())">-</button>
+                </div>
+                <div class="keys">
+                    <button type="button" class="btn btn-info btn-sm" value="4" onclick="display(value.valueOf())">4</button>
+                    <button type="button" class="btn btn-info btn-sm" value="5" onclick="display(value.valueOf())">5</button>
+                    <button type="button" class="btn btn-info btn-sm" value="6" onclick="display(value.valueOf())">6</button>
+                    <button type="button" class="btn btn-info btn-sm" value="x" onclick="display(value.valueOf())">×</button>
+                </div>
+                <div class="keys">
+                    <button type="button" class="btn btn-info btn-sm" value="1" onclick="display(value.valueOf())">1</button>
+                    <button type="button" class="btn btn-info btn-sm" value="2" onclick="display(value.valueOf())">2</button>
+                    <button type="button" class="btn btn-info btn-sm" value="3" onclick="display(value.valueOf())">3</button>
+                    <button type="button" class="btn btn-info btn-sm" value="+" onclick="display(value.valueOf())">÷</button>
+                </div>
+                <div class="keys">
+                    <button type="button" class="btn btn-info btn-sm" value="0" onclick="display(value.valueOf())">0</button>
+                    <button type="button" class="btn btn-info btn-sm" value="±" onclick="reserveSign()">±</button>
+                    <button type="button" class="btn btn-info btn-sm" value="." onclick="display(value.valueOf())">.</button>
+                    <button type="button" class="btn btn-info btn-sm" value="=" onclick="display(value.valueOf())">=</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function clearEverything() {
+            document.getElementById("screen").value = "";
+        }
+        function display(val) {
+            document.getElementById("screen").value += val;
+        }
+        function backspace() {
+            var currentString = document.getElementById("screen").value;
+            var newString = currentString.substring(0, currentString.length - 1);
+            document.getElementById("screen").value = newString;
+        }
+        function percent() {
+            var number = (document.getElementById("screen").value / 100);
+            document.getElementById("screen").value = number;
+        }
+        function reserveSign() {
+            var number = document.getElementById("screen").value;
+            document.getElementById("screen").value = (number * (-1));
+        }   
+</script>
+</body>
+</html>
+@RenderBody()
+

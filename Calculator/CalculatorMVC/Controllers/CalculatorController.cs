@@ -9,9 +9,14 @@ namespace CalculatorMVC.Controllers
     public class CalculatorController : Controller
     {
         // GET:/Calculator
-        public ActionResult Index()
+        public ActionResult Index(string firstNumber)
         {
-            return View();
+            if (firstNumber != string.Empty)
+            {
+                return View(firstNumber);
+            }
+            return View("OPPS");
+            
         }
     }
 }
